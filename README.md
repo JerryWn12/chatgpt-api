@@ -3,7 +3,7 @@
 ## example
 
 ```javascript
-import ChatGPT from "chatgpt-api"
+import ChatGPT from "@jerrywn/chatgpt-api"
 
 const client = new ChatGPT({
   openaiApiKey: process.env.OPENAI_API_KEY || "",
@@ -29,6 +29,12 @@ I am an AI language model designed to assist and provide helpful responses to us
 As an AI language model developed by OpenAI, I don't have a physical presence, so I'm not really "from" anywhere. However, OpenAI is a research organization based in San Francisco, California.
 Your previous question was "who are you?"
 ```
+
+## Usage
+
+`npm install @jerrywn/chatgpt-api`
+
+`import ChatGPT from "@jerrywn/chatgpt-api"`
 
 ## API
 
