@@ -1,6 +1,6 @@
 # chatgpt-api
 
-## example
+## Example
 
 ```javascript
 import ChatGPT from "@jerrywn/chatgpt-api"
