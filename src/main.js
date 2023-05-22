@@ -4,9 +4,10 @@ import { randomUUID } from "node:crypto"
 const OPENAI_API_URL = "https://api.openai.com/v1/chat/completions"
 
 const defaultModel = "gpt-3.5-turbo"
-const defaultTemperature = "0.7"
-const defaultMaxTokens = "512"
-const defaultPrompt = "You are a helpful assistant"
+const defaultTemperature = "0.8"
+const defaultMaxTokens = "1024"
+const defaultPrompt =
+  "You are ChatGPT, a large language model trained by OpenAI. Answer as concisely as possible"
 
 class ChatGPT {
   openaiApiKey
@@ -56,7 +57,6 @@ class ChatGPT {
       this._current_conversation = conversation
     } else {
       console.log(`conversation ${conversation} not found`)
-      process.exit(-1)
     }
   }
 
@@ -85,12 +85,18 @@ class ChatGPT {
       messages: conversation.messages,
     })
 
-    const response = await fetch(OPENAI_API_URL, {
-      method: "POST",
-      headers: this._headers,
-      body,
-    })
-    const data = await response.json()
+    let data
+    try {
+      const response = await fetch(OPENAI_API_URL, {
+        method: "POST",
+        headers: this._headers,
+        body,
+      })
+      data = await response.json()
+    } catch (error) {
+      console.log(error.message)
+    }
+
     const responseMessage = data.choices?.[0].message.content
     if (!responseMessage) {
       console.log(data.error.message)
