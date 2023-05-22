@@ -97,7 +97,7 @@ class ChatGPT {
       console.log(error.message)
     }
 
-    const responseMessage = data.choices?.[0].message.content
+    let responseMessage = data.choices?.[0].message.content
     if (!responseMessage) {
       console.log(data.error.message)
       responseMessage = "something error, please try again"
