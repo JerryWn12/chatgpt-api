@@ -1,6 +1,6 @@
 {
   "name": "@jerrywn/chatgpt-api",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "description": "A simple, lightweight, configurable ChatGPT api by nodejs",
   "main": "src/main.js",
