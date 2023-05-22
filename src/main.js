@@ -1,11 +1,11 @@
-import { randomUUID } from "node:crypto"
 import fs from "fs"
+import { randomUUID } from "node:crypto"
 
-const URL = "https://api.openai.com/v1/chat/completions"
+const OPENAI_API_URL = "https://api.openai.com/v1/chat/completions"
 
 const defaultModel = "gpt-3.5-turbo"
 const defaultTemperature = "0.7"
-const defaultMaxTokens = "256"
+const defaultMaxTokens = "512"
 const defaultPrompt = "You are a helpful assistant"
 
 class ChatGPT {
@@ -28,7 +28,7 @@ class ChatGPT {
   }) {
     if (!openaiApiKey) {
       console.log("please provide your openai api key")
-      process.exit(-1)
+      process.exit(1)
     }
     this.openaiApiKey = openaiApiKey
     this.model = model
@@ -85,7 +85,7 @@ class ChatGPT {
       messages: conversation.messages,
     })
 
-    const response = await fetch(URL, {
+    const response = await fetch(OPENAI_API_URL, {
       method: "POST",
       headers: this._headers,
       body,
@@ -94,7 +94,7 @@ class ChatGPT {
     const responseMessage = data.choices?.[0].message.content
     if (!responseMessage) {
       console.log(data.error.message)
-      process.exit(-1)
+      responseMessage = "something error, please try again"
     }
 
     conversation.messages.push({ role: "assistant", content: responseMessage })
