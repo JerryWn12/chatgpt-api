@@ -129,8 +129,5 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# project test
-src/test.js
-
 # project cache
 .cache.json
