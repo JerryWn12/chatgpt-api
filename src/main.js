@@ -100,6 +100,7 @@ class ChatGPT {
     })
 
     let data
+
     try {
       const response = await fetch(OPENAI_API_URL, {
         method: "POST",
@@ -111,9 +112,11 @@ class ChatGPT {
       console.log(error.message)
     }
 
-    let responseMessage = data.choices?.[0].message.content
+    let responseMessage = data?.choices?.[0].message.content
     if (!responseMessage) {
-      console.log(data.error.message)
+      if (data) {
+        console.log(data.error.message)
+      }
       responseMessage = "something error, please try again"
     }
 
