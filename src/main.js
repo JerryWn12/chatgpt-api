@@ -15,7 +15,6 @@ class ChatGPT {
   temperature
   maxTokens
   prompt
-  enableCache
 
   _headers
   _current_conversation
@@ -27,11 +26,10 @@ class ChatGPT {
     temperature = defaultTemperature,
     maxTokens = defaultMaxTokens,
     prompt = defaultPrompt,
-    enableCache = true,
   }) {
     if (!openaiApiKey) {
-      console.log("please provide your openai api key")
-      process.exitCode = 1
+      console.log("please set your openai api key")
+      process.exit(1)
     }
     this.openaiApiKey = openaiApiKey
     this.model = model
@@ -41,17 +39,6 @@ class ChatGPT {
     this._headers = {
       Authorization: `Bearer ${openaiApiKey}`,
       "Content-Type": "application/json",
-    }
-    if (enableCache) {
-      try {
-        fs.accessSync(`${process.cwd()}/.cache.json`)
-        const cache = fs.readFileSync(`${process.cwd()}/.cache.json`, {
-          encoding: "utf8",
-        })
-        if (cache) {
-          this._conversations = JSON.parse(cache)
-        }
-      } catch (err) {}
     }
   }
 
@@ -124,16 +111,6 @@ class ChatGPT {
 
     this._conversations[matchedIndex].messages = conversation.messages
 
-    const conversations = JSON.stringify(this._conversations)
-
-    if (this.enableCache) {
-      fs.writeFile(`${process.cwd()}/.cache.json`, conversations, err => {
-        if (err) {
-          console.log("error writing cache!")
-          console.log(err)
-        }
-      })
-    }
     return responseMessage
   }
 }
